@@ -1,3 +1,4 @@
 [submodule "eopseo-grammar"]
 	path = eopseo-grammar
 	url = https://github.com/eopseo-lang/eopseo-grammar.git
+	branch = main
