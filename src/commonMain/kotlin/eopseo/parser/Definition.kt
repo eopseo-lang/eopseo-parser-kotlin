@@ -18,7 +18,9 @@ class EsTheory(
             .map { it.judge(theorem,it.outsideTypeMold, distance + 1) }
             .filterIsInstance<Valid>()
 
-        return theorem.selectTheoryJudge(listOfValid)
+        return theorem.selectTheoryJudge(listOfValid).also {
+            if (it is Valid) it.theoryStack.add(0,this)
+        }
     }
     fun judgeSimple(type: EsType): Boolean {
         return insideTypeMold.isSame(type)
