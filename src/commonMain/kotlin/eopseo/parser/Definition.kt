@@ -10,9 +10,13 @@ class EsTheory(
     val insideTypeMold: EsType,
     val outsideTypeMold: EsType
 ): Definition() {
-    fun judge(theorem: EsTheorem, type: EsType, distance: Int = 1): JudgeResult {
-        if (distance > theorem.maxDistance) Invalid
-        if (insideTypeMold.isSame(type)) Valid(mutableListOf(this),distance)
+    class DistanceRef(var distance: Int)
+    fun judge(theorem: EsTheorem, type: EsType, distance: Int = 1, maxDistanceRef: DistanceRef = DistanceRef(theorem.maxDistance)): JudgeResult {
+        if (distance > maxDistanceRef.distance) return Invalid
+        if (insideTypeMold.isSame(type)) {
+            maxDistanceRef.distance = distance + 1
+            return Valid(mutableListOf(this),distance)
+        }
         val listOfValid = theorem.theories
             .filter { it.judgeSimple(type) }
             .map { it.judge(theorem,it.outsideTypeMold, distance + 1) }
