@@ -70,7 +70,7 @@ typeEx
 rBoolean
 primitiveType
 tupleType
-theory
+theorem
 compiledId
 forAll
 forAllCompo

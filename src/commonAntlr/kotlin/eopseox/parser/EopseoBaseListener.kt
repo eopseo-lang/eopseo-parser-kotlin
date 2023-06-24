@@ -148,13 +148,13 @@ open class EopseoBaseListener : EopseoListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	override fun enterTheory(ctx: EopseoParser.TheoryContext) { }
+	override fun enterTheorem(ctx: EopseoParser.TheoremContext) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	override fun exitTheory(ctx: EopseoParser.TheoryContext) { }
+	override fun exitTheorem(ctx: EopseoParser.TheoremContext) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -119,15 +119,15 @@ interface EopseoListener : ParseTreeListener {
 	 */
 	fun exitTupleType(ctx: EopseoParser.TupleTypeContext)
 	/**
-	 * Enter a parse tree produced by {@link EopseoParser#theory}.
+	 * Enter a parse tree produced by {@link EopseoParser#theorem}.
 	 * @param ctx the parse tree
 	 */
-	fun enterTheory(ctx: EopseoParser.TheoryContext)
+	fun enterTheorem(ctx: EopseoParser.TheoremContext)
 	/**
-	 * Exit a parse tree produced by {@link EopseoParser#theory}.
+	 * Exit a parse tree produced by {@link EopseoParser#theorem}.
 	 * @param ctx the parse tree
 	 */
-	fun exitTheory(ctx: EopseoParser.TheoryContext)
+	fun exitTheorem(ctx: EopseoParser.TheoremContext)
 	/**
 	 * Enter a parse tree produced by {@link EopseoParser#compiledId}.
 	 * @param ctx the parse tree

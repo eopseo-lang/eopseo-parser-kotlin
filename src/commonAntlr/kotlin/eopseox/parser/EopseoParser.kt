@@ -29,7 +29,7 @@ class EopseoParser(input: TokenStream) : Parser(input) {
                                                               EopseoParser.RBooleanContext::class,
                                                               EopseoParser.PrimitiveTypeContext::class,
                                                               EopseoParser.TupleTypeContext::class,
-                                                              EopseoParser.TheoryContext::class,
+                                                              EopseoParser.TheoremContext::class,
                                                               EopseoParser.CompiledIdContext::class,
                                                               EopseoParser.ForAllContext::class,
                                                               EopseoParser.ForAllCompoContext::class,
@@ -95,7 +95,7 @@ class EopseoParser(input: TokenStream) : Parser(input) {
         RULE_rBoolean(8),
         RULE_primitiveType(9),
         RULE_tupleType(10),
-        RULE_theory(11),
+        RULE_theorem(11),
         RULE_compiledId(12),
         RULE_forAll(13),
         RULE_forAllCompo(14),
@@ -112,7 +112,7 @@ class EopseoParser(input: TokenStream) : Parser(input) {
         val ruleNames = arrayOf("file", "fileCompo", "package_", "namespace_", 
                                 "import_", "importEx", "defaultType", "typeEx", 
                                 "rBoolean", "primitiveType", "tupleType", 
-                                "theory", "compiledId", "forAll", "forAllCompo", 
+                                "theorem", "compiledId", "forAll", "forAllCompo", 
                                 "reference", "newType", "commonId")
 
         private val LITERAL_NAMES: List<String?> = listOf(null, null, null, 
@@ -261,7 +261,7 @@ class EopseoParser(input: TokenStream) : Parser(input) {
 	        get() = Rules.RULE_fileCompo.id
 	        set(value) { throw RuntimeException() }
 		fun findNewType() : NewTypeContext? = getRuleContext(solver.getType("NewTypeContext"),0)
-		fun findTheory() : TheoryContext? = getRuleContext(solver.getType("TheoryContext"),0)
+		fun findTheorem() : TheoremContext? = getRuleContext(solver.getType("TheoremContext"),0)
 		constructor(parent: ParserRuleContext?, invokingState: Int) : super(parent, invokingState){
 		}
 		override fun enterRule(listener: ParseTreeListener) {
@@ -289,7 +289,7 @@ class EopseoParser(input: TokenStream) : Parser(input) {
 			enterOuterAlt(_localctx, 2)
 			if (true){
 			this.state = 45
-			theory()
+			theorem()
 			}}
 			else -> throw NoViableAltException(this)
 			}
@@ -776,9 +776,9 @@ class EopseoParser(input: TokenStream) : Parser(input) {
 		return _localctx
 	}
 
-	open class TheoryContext : ParserRuleContext {
+	open class TheoremContext : ParserRuleContext {
 	    override var ruleIndex: Int
-	        get() = Rules.RULE_theory.id
+	        get() = Rules.RULE_theorem.id
 	        set(value) { throw RuntimeException() }
 		var inside: TypeExContext? = null
 		var outside: TypeExContext? = null
@@ -791,16 +791,16 @@ class EopseoParser(input: TokenStream) : Parser(input) {
 		constructor(parent: ParserRuleContext?, invokingState: Int) : super(parent, invokingState){
 		}
 		override fun enterRule(listener: ParseTreeListener) {
-			if ( listener is EopseoListener ) (listener as EopseoListener).enterTheory(this)
+			if ( listener is EopseoListener ) (listener as EopseoListener).enterTheorem(this)
 		}
 		override fun exitRule(listener: ParseTreeListener) {
-			if ( listener is EopseoListener ) (listener as EopseoListener).exitTheory(this)
+			if ( listener is EopseoListener ) (listener as EopseoListener).exitTheorem(this)
 		}
 	}
 
-	fun  theory() : TheoryContext {
-		var _localctx : TheoryContext = TheoryContext(context, state)
-		enterRule(_localctx, 22, Rules.RULE_theory.id)
+	fun  theorem() : TheoremContext {
+		var _localctx : TheoremContext = TheoremContext(context, state)
+		enterRule(_localctx, 22, Rules.RULE_theorem.id)
 		var _la: Int
 		try {
 			this.state = 115
@@ -830,11 +830,11 @@ class EopseoParser(input: TokenStream) : Parser(input) {
 			}
 
 			this.state = 101
-			(_localctx as TheoryContext).inside = typeEx()
+			(_localctx as TheoremContext).inside = typeEx()
 			this.state = 102
 			match(RARROW) as Token
 			this.state = 103
-			(_localctx as TheoryContext).outside = typeEx()
+			(_localctx as TheoremContext).outside = typeEx()
 			}}
 			2 -> {
 			enterOuterAlt(_localctx, 2)
@@ -860,11 +860,11 @@ class EopseoParser(input: TokenStream) : Parser(input) {
 			}
 
 			this.state = 111
-			(_localctx as TheoryContext).outside = typeEx()
+			(_localctx as TheoremContext).outside = typeEx()
 			this.state = 112
 			match(LARROW) as Token
 			this.state = 113
-			(_localctx as TheoryContext).inside = typeEx()
+			(_localctx as TheoremContext).inside = typeEx()
 			}}
 			}
 		}
