@@ -22,7 +22,7 @@ class Generic(val id: String): EsType {
     }
 }
 
-class EsTuple(val types: List<EsType>): EsType {
+class EsTuple(val types: MutableList<EsType>): EsType {
     override var namespace: Parsing<String> = Parsed("")
 
     override fun isSame(type: EsType): Boolean {

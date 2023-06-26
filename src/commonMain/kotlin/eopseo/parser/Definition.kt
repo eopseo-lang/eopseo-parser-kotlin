@@ -4,12 +4,13 @@ abstract class Definition {
     var namespace: Parsing<String> by WillParse()
 }
 
-class EsTheorem(
+open class EsTheorem(
     val id: String,
-    val forAllMap: Map<String,EsType?>,
+    val forAllMap: Map<Generic,EsType?>,
     val insideTypeMold: EsType,
     val outsideTypeMold: EsType
 ): Definition() {
+    open val isBackgroundTheorem: Boolean = false
     class DistanceRef(var distance: Int)
     fun judge(theory: EsTheory, type: EsType, distance: Int = 1, maxDistanceRef: DistanceRef = DistanceRef(theory.maxDistance)): JudgeResult {
         if (distance > maxDistanceRef.distance) return Invalid
@@ -29,6 +30,15 @@ class EsTheorem(
     fun judgeSimple(type: EsType): Boolean {
         return insideTypeMold.isSame(type)
     }
+}
+
+open class BacksideEsTheorem(
+    id: String,
+    forAllMap: Map<Generic,EsType?>,
+    insideTypeMold: EsType,
+    outsideTypeMold: EsType
+): EsTheorem(id, forAllMap, insideTypeMold, outsideTypeMold) {
+    override val isBackgroundTheorem: Boolean = true
 }
 
 sealed interface JudgeResult
