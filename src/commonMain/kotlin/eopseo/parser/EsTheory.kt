@@ -4,10 +4,10 @@ open class EsTheory(val backsideTheories: List<EsTheory>) {
     val maxDistance = 50
     val originTheorems: MutableList<EsTheorem> = mutableListOf()
 
-    protected inner class PreTheoremIterator(val targetType: EsType): Iterator<EsTheorem> {
+    protected inner class PreTheoremIterator(val targetType: EsType, val outsideType: EsType): Iterator<EsTheorem> {
         val originIterator = originTheorems.iterator()
         val backsideIterator = backsideTheories.flatMap {
-            it.getAdequateTheorems(targetType)
+            it.getAdequateTheorems(targetType,outsideType)
         }.iterator()
 
         override fun hasNext(): Boolean {
@@ -20,17 +20,17 @@ open class EsTheory(val backsideTheories: List<EsTheory>) {
         }
     }
 
-    protected inner class PreTheoremIterable(val targetType: EsType): Iterable<EsTheorem> {
+    protected inner class PreTheoremIterable(val targetType: EsType, val outsideType: EsType): Iterable<EsTheorem> {
         override fun iterator(): Iterator<EsTheorem> {
-            return PreTheoremIterator(targetType)
+            return PreTheoremIterator(targetType, outsideType)
         }
     }
 
-    open fun getAdequateTheorems(targetType: EsType): Iterable<EsTheorem> {
-        return PreTheoremIterable(targetType)
+    open fun getAdequateTheorems(targetType: EsType, outsideType: EsType): Iterable<EsTheorem> {
+        return PreTheoremIterable(targetType, outsideType)
     }
 
-    fun selectTheoremJudge(results: List<Valid>): JudgeResult {
+    fun selectResult(results: List<Valid>): CheckResult {
         return results.minByOrNull { it.distance } ?: Invalid
     }
 }

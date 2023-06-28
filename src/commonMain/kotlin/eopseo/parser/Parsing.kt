@@ -1,6 +1,5 @@
 package eopseo.parser
 
-import kotlin.reflect.KMutableProperty
 import kotlin.reflect.KProperty
 
 sealed interface Parsing<out T> {
@@ -12,10 +11,10 @@ sealed interface Parsing<out T> {
 object NotYet: Parsing<Nothing>
 class Parsed<out T>(val value: T): Parsing<T>
 
-class WillParse<T> {
+class WillParse<T,RT> {
     var parsing: Parsing<T> = NotYet
-    operator fun getValue(thisRef: Any?, property: KProperty<*>) = parsing
-    operator fun setValue(thisRef: Any?, property: KProperty<*>, value: Parsing<T>) {
+    operator fun getValue(thisRef: RT, property: KProperty<*>) = parsing
+    operator fun setValue(thisRef: RT, property: KProperty<*>, value: Parsing<T>) {
         if (parsing != NotYet) throw Exception()
         when (value) {
             NotYet -> throw Exception()
@@ -25,3 +24,4 @@ class WillParse<T> {
         }
     }
 }
+
